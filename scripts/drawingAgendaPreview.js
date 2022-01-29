@@ -59,7 +59,7 @@ function addAgendaBackground() {
 	// calculate agenda width and height
 
 	agendaSize.x =
-		screen.width - 2 * AGENDA_MARGIN;
+		screen.width * window.devicePixelRatio - AGENDA_MARGIN * 2;
 
 	agendaSize.y = (
 		NORMALIZED_Y_INCREMENTS.TOP_TO_CLUBS +
