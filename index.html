@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+
+		* {
+			margin: 0;
+			text-align: center;
+		}
+
+		body {
+			background-color: #CCC;
+		}
+
+		td, #page_footer, .tab_footer {
+			background-color: #DDD;
+		}
+
+		.tab_main {
+			height: 84vh;
+			overflow: scroll;
+		}
+
+		.tab_footer, #page_footer {
+			border: 1vh solid #CCC;
+			padding: 1vh;
+			height: 4vh;
+		}
+
+		table {
+			height: 84vh;
+			margin-left: auto;
+			margin-right: auto;
+			vertical-align: bottom;
+		}
+
+		td {
+			padding: 2px;
+		}
+
+		button {
+			border: 0;
+			border-left: 0.2em solid #888;
+		}
+	</style>
+</head>
+<body>
+	<div class="tab" id="clubs">
+		<div class="tab_main">
+			<table>
+			</table>
+		</div>
+		<div class="tab_footer">
+			<button> increase clubs </button>
+			<button> decrease clubs </button>
+		</div>
+	</div>
+
+	<div class="tab" id="theme_venue_time">
+		<div class="tab_main">
+			<table>
+				<tr>
+					<td> Theme </td>
+					<td> <input/> </td>
+				</tr>
+				<tr>
+					<td> Venue </td>
+					<td> <input/> </td>
+				</tr>
+				<tr>
+					<td> Date </td>
+					<td> <input type="date"/> </td>
+				</tr>
+				<tr>
+					<td> Join by </td>
+					<td> <input type="time"/> </td>
+				</tr>
+				<tr>
+					<td> Start time </td>
+					<td> <input type="time"/> </td>
+				</tr>
+				<tr>
+					<td> Stop time </td>
+					<td> <input type="time"/> </td>
+				</tr>
+			</table>
+		</div>
+		<div class="tab_footer">
+		</div>
+	</div>
+
+	<div class="tab" id="plan">
+		<div class="tab_main">
+			<table>
+			</table>
+		</div>
+		<div class="tab_footer">
+		</div>
+	</div>
+
+	<div class="tab" id="roleplayers">
+		<div class="tab_main">
+			<table>
+			</table>
+		</div>
+		<div class="tab_footer">
+			<button> increase roleplayers </button>
+			<button> decrease roleplayers </button>
+		</div>
+	</div>
+
+	<div class="tab" id="agenda_preview">
+		<div class="tab_main">
+			<canvas> </canvas>
+		</div>
+		<div class="tab_footer">
+		</div>
+	</div>
+
+    <div id="page_footer">
+		<select id="select_tab">
+			<option value="clubs">
+				Clubs
+			</option>
+			<option value="theme_venue_time">
+				Theme, Time and Venue
+			</option>
+			<option value="plan">
+				Plan
+			</option>
+			<option value="roleplayers">
+				Rolelayers
+			</option>
+		</select>
+		<button>
+			Edit
+		</button>
+		<button>
+			Start Preview
+		</button>
+    </div>
+
+    <script src="./scripts/helperFunctions.js"> </script>
+    <script src="./scripts/timeMath.js"> </script>
+    <script src="./scripts/editClubs.js"> </script>
+    <script src="./scripts/editThemeVenueTime.js"> </script>
+    <script src="./scripts/editPlan.js"> </script>
+    <script src="./scripts/editRoleplayers.js"> </script>
+    <script src="./scripts/agendaPreviewTab.js"> </script>
+    <script src="./scripts/drawingAgendaPreview.js"> </script>
+    <script src="./scripts/editTabs.js"> </script>
+</body>
+</html>
