@@ -301,11 +301,9 @@ function add(n) {
 	plan =
 		[...itemsBeforeItemToAdd, {}, ...itemsAfterItemToAdd];
 
-	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
-
-	// model to view
-
 	drawPlan();
+
+	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
 
 function remove(n) {
@@ -319,11 +317,9 @@ function remove(n) {
 	plan =
 		[...itemsBeforeItemToRemove, ...itemsAfterItemToRemove];
 
-	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
-
-	// model to view
-
 	drawPlan();
+
+	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
 
 function drop(n) {
@@ -338,11 +334,9 @@ function drop(n) {
 		movePickedItemUp(pickIndex, dropIndex);
 	}
 
-	clearPicked()
-
-	// model to view
-
 	drawPlan();
+
+	clearPicked()
 }
 
 function clearPicked() {
