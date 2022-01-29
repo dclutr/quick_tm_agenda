@@ -6,8 +6,12 @@ const agendaPreviewTab =
 const agendaPreviewCanvas =
 	document.querySelector('#agenda_preview .tab_main canvas');
 
+const agendaDownloadLink =
+	document.querySelector('#agenda_preview .tab_footer a');
+
 const agendaPreviewButton =
 	document.querySelectorAll('#page_footer button')[1];
+
 
 // canvas
 
@@ -30,6 +34,9 @@ function startAgendaPreview() {
 
 	switchToAgendaPreviewTab();
 	drawAgendaPreviewCanvas();
+
+	// load agenda download link
+	agendaDownloadLink.href = agendaPreviewCanvas.toDataURL('image/jpeg', 1.0);;
 }
 
 // switch to agenda preview tab
@@ -49,4 +56,3 @@ function switchToAgendaPreviewTab() {
 
 	agendaPreviewTab.style.display = 'block';
 }
-

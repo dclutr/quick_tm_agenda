@@ -18,7 +18,7 @@ const NORMALIZED_Y_INCREMENTS = {
 };
 
 const NORMALIZED_FONT_SIZES = {
-	CLUBS:								0.04,
+	CLUBS:								0.030,
 	THEME_VENUE_TIME:					0.020,
 	TABLE_HEADER:						0.020,
 	PLAN_ITEMS:							0.018,
