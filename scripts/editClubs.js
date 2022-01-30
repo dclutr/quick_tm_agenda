@@ -45,9 +45,9 @@ clubsDecreaseButton.onclick = () => {
 
 // model to view
 
-clubsToClubsTable();
+clubsToTable();
 
-function clubsToClubsTable() {
+function clubsToTable() {
 
 	clubsTable.innerHTML = clubs.reduce((html, club, index) => (
 			html +

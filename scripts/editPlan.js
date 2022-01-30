@@ -171,9 +171,9 @@ clearPicked();
 
 // model to view
 
-planToPlanTable();
+planToTable();
 
-function planToPlanTable() {
+function planToTable() {
 
 	planTable.innerHTML = plan
 		.reduce((html, item, index) => (html +
@@ -285,7 +285,7 @@ function add(n) {
 			...itemsAfterItemToAdd
 		];
 
-	planToPlanTable();
+	planToTable();
 
 	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
@@ -301,7 +301,7 @@ function remove(n) {
 	plan =
 		[...itemsBeforeItemToRemove, ...itemsAfterItemToRemove];
 
-	planToPlanTable();
+	planToTable();
 
 	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
@@ -318,7 +318,7 @@ function drop(n) {
 		movePickedItemUp(pickIndex, dropIndex);
 	}
 
-	planToPlanTable();
+	planToTable();
 
 	clearPicked()
 }

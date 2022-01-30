@@ -93,7 +93,7 @@ roleplayersIncreaseButton.onclick = () => {
 	};
 
 	roleplayers.push(newRoleplayer);
-	drawRoleplayersTable();
+	roleplayersToTable();
 }
 
 // if at least 2 roleplayers, remove roleplayer from model and update view
