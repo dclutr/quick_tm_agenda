@@ -3,7 +3,7 @@ A tool to create an agenda for a Toastmasters meeting (https://dclutr.github.io/
 
 Known issues:
 
-1. The TM logo does not appear in the download version
+1. The TM logo does not appear in the downloaded copy of the agenda as it does in the preview copy
 
 Unknown issues:
 
