@@ -163,15 +163,14 @@ const planTable =
 const planFooter =
 	document.querySelector('#plan .tab_footer');
 
-// no item picked
+// when no item picked, pickedItemNumber: NONE
 
 const NONE = -1;
-
-clearPicked();
 
 // model to view
 
 planToTable();
+clearPicked();
 
 function planToTable() {
 
