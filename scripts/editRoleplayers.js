@@ -30,6 +30,10 @@ let roleplayers = [
 		name: 'TM Galadriel'
 	},
 	{
+		role: 'Table Topics Master',
+		name: 'TM Merry'
+	},,
+	{
 		role: 'Evaluator 1',
 		name: 'TM Elrond'
 	},
@@ -44,11 +48,7 @@ let roleplayers = [
 	{
 		role: 'Speaker 2',
 		name: 'TM Gollum'
-	},
-	{
-		role: 'Table Topics Master',
-		name: 'TM Merry'
-	},
+	}
 
 ];
 
