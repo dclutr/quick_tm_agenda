@@ -52,6 +52,7 @@ let plan = [
 		description: 'Speech'
 	},
 	{
+		roleplayer: '',
 		minutes: 1,
 		description: 'Feedback to Speaker 1'
 	},
@@ -66,6 +67,7 @@ let plan = [
 		description: 'Speech'
 	},
 	{
+		roleplayer: '',
 		minutes: 1,
 		description: 'Feedback to Speaker 2'
 	},
@@ -151,6 +153,8 @@ let plan = [
 	},
 ];
 
+let pickedItemNumber;
+
 // view
 
 const planTable =
@@ -159,49 +163,39 @@ const planTable =
 const planFooter =
 	document.querySelector('#plan .tab_footer');
 
-// null when no item picked
+// no item picked
 
-let pickedItemNumber = null;
+const NONE = -1;
+
+clearPicked();
 
 // model to view
 
-drawPlan();
+planToPlanTable();
 
-hideButtons(['drop_buttons', 'cancel_pick_buttons']);
-
-planFooter.innerHTML = '[ nothing picked ]';
-
-function drawPlan() {
+function planToPlanTable() {
 
 	planTable.innerHTML = plan
 		.reduce((html, item, index) => (html +
-			getSlotHtml(index) +
-			getItemHtml(index) +
-			getMinutesHtml(item, index) +
-			getRoleplayerHtml(item, index) +
-			getDescriptionHtml(item, index)
+			emptySlotRow(index) +
+			itemHeaderRow(index) +
+			itemMinutesToRow(item.minutes, index) +
+			itemRoleplayerToRow(item.roleplayer, index) +
+			itemDescriptionRow(item.description, index)
 		), '') +
-		getSlotHtml(plan.size);
+		emptySlotRow(plan.size);
 }
 
 // add, drop, cancel pick buttons
 
-function getSlotHtml(index) {
+function emptySlotRow(index) {
 
 	return (
 		'<tr>' +
 			'<td style="background-color: #CCC;"> </td>' +
 			'<td style="background-color: #CCC;">' +
-				'<button ' +
-					'class="add_buttons" ' +
-					'onclick="add(' + index + ')">' +
-						'add' +
-				'</button>' +
-				'<button ' +
-					'class="drop_buttons" ' +
-					'onclick="drop(' + index + ')">' +
-						'drop' +
-				'</button>' +
+				'<button class="add_buttons" onclick="add(' + index + ')"> add </button>' +
+				'<button class="drop_buttons" onclick="drop(' + index + ')"> drop </button>' +
 			'</td>' +
 		'</tr>'
 	);
@@ -209,86 +203,65 @@ function getSlotHtml(index) {
 
 // remove, pick buttons
 
-function getItemHtml(index) {
+function itemHeaderRow(index) {
 
 	return (
 		'<tr>' +
 			'<td>' + (index + 1) + '</td>' +
 			'<td>' +
-				'<button ' +
-					'class="remove_buttons" ' +
-					'onclick="remove(' + index + ')">' +
-					'remove' +
-				'</button>' +
-				'<button ' +
-					'class="pick_buttons" ' +
-					'onclick="setPicked(' + index + ')">' +
-						'pick' +
-				'</button>' +
+				'<button class="remove_buttons" onclick="remove(' + index + ')"> remove </button>' +
+				'<button class="pick_buttons" onclick="setPicked(' + index + ')"> pick </button>' +
 			'</td>' +
 		'</tr>'
 	);
 }
 
-function getMinutesHtml(item, index) {
-
-	if (item.minutes === undefined) {
-		item.minutes = 0;
-	}
+function itemMinutesToRow(minutes, index) {
 
 	return (
 		'<tr>' +
 			'<td> Minutes </td>' +
-			'<td>' +
-				'<input ' +
-					'id="plan_minutes_' + index + '" ' +
-					'onchange=changePlanMinutes(' + index + ') ' +
-					'value="' + item.minutes + '" ' +
-					'type="number"/>' +
-			'</td>' +
+			'<td> <input class="plan_item_minutes" onchange="rowToItemMinutes(' + index + ')" value="' + minutes + '" type="number"/> </td>' +
 		'</tr>'
 	);
 }
 
-function getRoleplayerHtml(item, index) {
-
-	if (item.roleplayer === undefined) {
-		item.roleplayer = '';
-	}
+function itemRoleplayerToRow(roleplayer, index) {
 
 	return (
 		'<tr>' +
 			'<td> Roleplayer </td>' +
-			'<td>' +
-				'<input ' +
-					'id="plan_roleplayer_' + index + '" ' +
-					'onchange=changePlanRoleplayer(' + index + ') ' +
-					'value="' + item.roleplayer + '"/>' +
-			'</td>' +
+			'<td> <input class="plan_item_roleplayer" onchange="rowToItemRoleplayer(' + index + ')" value="' + roleplayer + '"/> </td>' +
 		'</tr>'
 	);
 }
 
-function getDescriptionHtml(item, index) {
-
-	if (item.description === undefined) {
-		item.description = '';
-	}
+function itemDescriptionRow(description, index) {
 
 	return (
 		'<tr>' +
 			'<td> Description </td>' +
-			'<td>' +
-				'<input ' +
-					'id="plan_description_' + index + '" ' +
-					'onchange=changePlanDescription(' + index + ') ' +
-					'value="' + item.description + '"/>' +
-			'</td>' +
+			'<td> <input class="plan_item_description" onchange="rowToItemDescription(' + index + ')" value="' + description + '"/> </td>' +
 		'</tr>'
 	);
 }
 
 // view to model
+
+function rowToItemMinutes(index) {
+	plan[index].minutes =
+		document.querySelectorAll('.plan_item_minutes')[index].value;
+}
+
+function rowToItemRoleplayer(index) {
+	plan[index].roleplayer =
+		document.querySelectorAll('.plan_item_roleplayer')[index].value;
+}
+
+function rowToItemDescription(index) {
+	plan[index].description =
+		document.querySelectorAll('.plan_item_description')[index].value;
+}
 
 function add(n) {
 
@@ -299,9 +272,20 @@ function add(n) {
 		((n !== plan.size) ? plan.slice(n) : []);
 
 	plan =
-		[...itemsBeforeItemToAdd, {}, ...itemsAfterItemToAdd];
+		[
+			...itemsBeforeItemToAdd,
+			{
+				minutes:
+					DEFAULTS.PLAN_ITEM_MINUTES,
+				roleplayer:
+					DEFAULTS.PLAN_ITEM_ROLEPLAYER,
+				description:
+					DEFAULTS.PLAN_ITEM_DESCRIPTION
+			},
+			...itemsAfterItemToAdd
+		];
 
-	drawPlan();
+	planToPlanTable();
 
 	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
@@ -317,7 +301,7 @@ function remove(n) {
 	plan =
 		[...itemsBeforeItemToRemove, ...itemsAfterItemToRemove];
 
-	drawPlan();
+	planToPlanTable();
 
 	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
 }
@@ -334,40 +318,10 @@ function drop(n) {
 		movePickedItemUp(pickIndex, dropIndex);
 	}
 
-	drawPlan();
+	planToPlanTable();
 
 	clearPicked()
 }
-
-function clearPicked() {
-
-	planFooter.innerHTML = '[ nothing picked ]';
-	pickedItemNumber = null;
-	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
-	showButtons(['pick_buttons', 'add_buttons', 'remove_buttons']);
-}
-
-function setPicked(index) {
-
-	planFooter.innerHTML =
-		' [ ' +
-		(index + 1) +
-		' ] ' +
-		'<button ' +
-			'class="cancel_pick_buttons" ' +
-			'onclick="clearPicked()">'+
-				'cancel pick' +
-		'</button>';
-
-	pickedItemNumber = index;
-
-	hideButtons(['pick_buttons', 'add_buttons', 'remove_buttons']);
-	showButtons(['drop_buttons', 'cancel_pick_buttons']);
-	document.querySelectorAll('.drop_buttons')[index].style.display = 'none';
-	document.querySelectorAll('.drop_buttons')[index + 1].style.display = 'none';
-}
-
-// changing model
 
 function movePickedItemDown(pickIndex, dropIndex) {
 
@@ -383,13 +337,9 @@ function movePickedItemDown(pickIndex, dropIndex) {
 	plan = [...part1, ...part2, plan[pickIndex], plan[dropIndex], ...part3];
 }
 
-// before
-// plan === [i0, i1, i2, i3, i4, i5, i6, i7]
-//
 // movePickedItemDown(2, 5);
 //
-// after
-// plan === [i0, i1, i3, i4, i2, i5, i6, i7]
+// [i0, i1, i2, i3, i4, i5, i6, i7] ===> [i0, i1, i3, i4, i2, i5, i6, i7]
 
 function movePickedItemUp(pickIndex, dropIndex) {
 
@@ -405,32 +355,62 @@ function movePickedItemUp(pickIndex, dropIndex) {
 	plan = [...part1, plan[pickIndex], plan[dropIndex], ...part2, ...part3];
 }
 
-// before
-// plan === [i0, i1, i2, i3, i4, i5, i6, i7]
-//
 // movePickedItemUp(5, 2);
 //
-// after
-// plan === [i0, i1, i5, i2, i3, i4, i6, i7]
+// [i0, i1, i2, i3, i4, i5, i6, i7] ===>  [i0, i1, i5, i2, i3, i4, i6, i7]
 
-// changing view
+// changes to view and model
+
+function clearPicked() {
+
+	planFooter.innerHTML =
+		'[ nothing picked ]';
+
+	pickedItemNumber = NONE;
+
+	// no drop, cancel pick when no item is picked
+	hideButtons(['drop_buttons', 'cancel_pick_buttons']);
+	showButtons(['pick_buttons', 'add_buttons', 'remove_buttons']);
+}
+
+function setPicked(index) {
+
+	planFooter.innerHTML =
+		'[ ' + (index + 1) + ' ] <button class="cancel_pick_buttons" onclick="clearPicked()"> cancel pick </button>';
+
+	pickedItemNumber = index;
+
+	// no add, remove, pick when an item is picked
+	hideButtons(['pick_buttons', 'add_buttons', 'remove_buttons']);
+	showButtons(['drop_buttons', 'cancel_pick_buttons']);
+
+	// no drop just before or just after picked item
+	document.querySelectorAll('.drop_buttons')[index].style.display = 'none';
+	document.querySelectorAll('.drop_buttons')[index + 1].style.display = 'none';
+}
+
+// hide buttons by class
 
 function hideButtons(buttonClasses) {
 
 	for (buttonClass of buttonClasses) {
 
-		const buttonElements = document.querySelectorAll('.' + buttonClass);
+		const buttonElements =
+			document.querySelectorAll('.' + buttonClass);
 
 		for (buttonElement of buttonElements)
 			buttonElement.style.display = 'none';
 	}
 }
 
+// show buttons by class
+
 function showButtons(buttonClasses) {
 
 	for (buttonClass of buttonClasses) {
 
-		const buttonElements = document.querySelectorAll('.' + buttonClass);
+		const buttonElements =
+			document.querySelectorAll('.' + buttonClass);
 
 		for (buttonElement of buttonElements)
 			buttonElement.style.display = 'inline';

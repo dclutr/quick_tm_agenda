@@ -8,9 +8,9 @@ const ctx =
 const NORMALIZED_Y_INCREMENTS = {
 	TOP_TO_CLUBS:						0.08,
 	CLUBS:								0.04,
-	CLUBS_TO_THEME_VENUE_TIME:			0.03,
-	THEME_VENUE_TIME:					0.03,
-	THEME_VENUE_TIME_TO_TABLE_HEADER:	0.06,
+	CLUBS_TO_THEME_VENUE_TIME:			0.06,
+	THEME_VENUE_TIME:					0.04,
+	THEME_VENUE_TIME_TO_TABLE_HEADER:	0.08,
 	TABLE_HEADER_TO_PLAN_ITEMS:			0.04,
 	PLAN_ITEMS:							0.04,
 	PLAN_ITEMS_TO_TABLE_FOOTER:			0.02,
@@ -48,18 +48,19 @@ let columnXPositions = [];
 
 function drawAgendaPreviewCanvas() {
 
+	scaleAgendaCanvas()
 	addAgendaBackground();
 	addClubs();
 	addThemeVenueTime();
 	addTable();
 }
 
-function addAgendaBackground() {
+function scaleAgendaCanvas() {
 
-	// calculate agenda width and height
+	// calculate agenda size
 
 	agendaSize.x =
-		screen.width * window.devicePixelRatio - AGENDA_MARGIN * 2;
+		0.96 * document.querySelector('#agenda_preview .tab_main').offsetWidth;
 
 	agendaSize.y = (
 		NORMALIZED_Y_INCREMENTS.TOP_TO_CLUBS +
@@ -73,10 +74,13 @@ function addAgendaBackground() {
 		NORMALIZED_Y_INCREMENTS.TABLE_FOOTER * 4
 	) * agendaSize.x;
 
-	// apply agenda width and height
+	// apply agenda size
 
 	[agendaPreviewCanvas.width, agendaPreviewCanvas.height] =
 		['' + agendaSize.x, '' + agendaSize.y];
+}
+
+function addAgendaBackground() {
 
 	// white background
 

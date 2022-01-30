@@ -21,9 +21,15 @@ function addMinutesToTimeString(minutes, timeString) {
 		time.hours -= 24;
 	}
 
-	return (
-		zeroFill('' + time.hours, 2) + ':' + zeroFill('' + time.minutes, 2)
+	// {hours: 1, minutes: 1} ===> '01:01'
+	const result = (
+		zeroFill(time.hours, 2) +
+		':' +
+		zeroFill(time.minutes, 2)
 	);
+
+	console.log(timeString + ' + ' + minutes + ' = ' + result);
+	return result;
 }
 // addMinutesToTimeString(5, '13:05') === '13:10'
 
@@ -49,9 +55,15 @@ function subtractMinutesFromTimeString(minutes, timeString) {
 		time.hours += 24;
 	}
 
-	return (
-		zeroFill('' + time.hours, 2) + ':' + zeroFill('' + time.minutes, 2)
+	// {hours: 1, minutes: 1} ===> '01:01'
+	const result = (
+		zeroFill(time.hours, 2) +
+		':' +
+		zeroFill('' + time.minutes, 2)
 	);
+
+	console.log(timeString + ' - ' + minutes + ' = ' + result);
+	return result;
 }
 
 // subtractMinutesFromTimeString(5, '13:05') === '13:00'
@@ -64,7 +76,11 @@ function timeStringDifferenceInMinutes(timeA, timeB) {
 	const minuteDifference =
 			parseInt(timeA.slice(3)) - parseInt(timeB.slice(3));
 
-	return (60 * hourDifference + minuteDifference);
+	const result =
+		(60 * hourDifference + minuteDifference);
+
+	console.log(timeA + ' - ' + timeB + ' = ' + result);
+	return result;
 }
 
 // timeStringDifferenceInMinutes('13:24', '12:14') === 70

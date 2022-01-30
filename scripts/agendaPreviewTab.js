@@ -17,9 +17,6 @@ const agendaPreviewButton =
 
 const AGENDA_MARGIN = 16;
 
-agendaPreviewCanvas.style.margin =
-	AGENDA_MARGIN + 'px';
-
 // agenda preview button
 
 agendaPreviewButton.onclick = startAgendaPreview;

@@ -1,93 +1,91 @@
 // model
 
-let clubs = [{}];
+let clubs = [{
+	name:
+		DEFAULTS.CLUB_NAME,
+	meetingNumber:
+		DEFAULTS.CLUB_MEETING_NUMBER
+}];
 
 // view
 
 const clubsTable =
 	document.querySelector('#clubs .tab_main table');
 
-const [increaseClubsButton, decreaseClubsButton] =
+const [
+	clubsIncreaseButton,
+	clubsDecreaseButton
+] =
 	document.querySelectorAll('#clubs .tab_footer button');
 
-// change number of clubs in model and view
+// add club to model and update view
 
-increaseClubsButton.onclick = () => {
-	clubs.push({});
-	drawClubsTable();
+clubsIncreaseButton.onclick = () => {
+
+	const newClub = {
+		name:
+			DEFAULTS.CLUB_NAME,
+		meetingNumber:
+			DEFAULTS.CLUB_MEETING_NUMBER
+	};
+
+	clubs.push(newClub);
+	clubsToTable();
 }
 
-decreaseClubsButton.onclick = () => {
-	if(clubs.length >= 2) { clubs.pop(); }
-	drawClubsTable();
+// if at least 2 clubs, remove club from model and update view
+
+clubsDecreaseButton.onclick = () => {
+
+	if (clubs.length >= 2) {
+		clubs.pop();
+		clubsToTable();
+	}
 }
 
 // model to view
 
-drawClubsTable();
+clubsToClubsTable();
 
-function drawClubsTable() {
+function clubsToClubsTable() {
 
-	clubsTable.innerHTML = clubs
-		.reduce((html, club, index) => (
+	clubsTable.innerHTML = clubs.reduce((html, club, index) => (
 			html +
-			getClubNameHtml(index) +
-			getClubMeetingNumberHtml(index)
-		), '');
+			clubNameToRow(index) +
+			clubMeetingNumberToRow(index)
+		),
+		''
+	);
 }
 
-function getClubNameHtml(i) {
-
-	if (clubs[i].name === undefined) {
-		clubs[i].name = '<club name>';
-	}
+function clubNameToRow(i) {
 
 	return (
 		'<tr>' +
-			'<td style="background-color: #CCC;"> </td>' +
-			'<td style="background-color: #CCC;"> </td>' +
-		'</tr>' +
-		'<tr>' +
 			'<td> Club ' + (i + 1) + '</td>' +
-			'<td>' +
-				'<input ' +
-					'id="club_' + i + '_name" '+
-					'onchange="changeClubName(' + i + ')" ' +
-					'value="' + clubs[i].name + '"' +
-				'/> '+
-			'</td>' +
+			'<td> <input class="club_name" onchange="rowToClubName(' + i + ')" value="' + clubs[i].name + '"/> </td>' +
 		'</tr>'
 	);
 }
 
-function getClubMeetingNumberHtml(i) {
-
-	if (clubs[i].meetingNumber === undefined) {
-		clubs[i].meetingNumber = 0;
-	}
+function clubMeetingNumberToRow(i) {
 
 	return (
 		'<tr>' +
 			'<td> Meeting # </td>' +
-			'<td>' +
-				'<input type="number"' +
-					'id="club_' + i + '_meeting_number" ' +
-					'onchange="changeClubMeetingNumber(' + i + ')"' +
-					'value="' + clubs[i].meetingNumber + '"' +
-				'/>'+
-			'</td>' +
+			'<td> <input class="club_meeting_number" onchange="rowToClubMeetingNumber(' + i + ')" value="' + clubs[i].meetingNumber + '" type="number"/> </td>' +
 		'</tr>'
 	);
 }
 
 // view to model
 
-function changeClubName(i) {
+function rowToClubName(i) {
 	clubs[i].name =
-		document.querySelector('#club_' + i + '_name').value;
+		document.querySelectorAll('.club_name')[i].value;
 }
 
-function changeClubMeetingNumber(i) {
+function rowToClubMeetingNumber(i) {
 	clubs[i].meetingNumber =
-		document.querySelector('#club_' + i + '_meeting_number').value;
+		document.querySelectorAll('.club_meeting_number')[i].value;
 }

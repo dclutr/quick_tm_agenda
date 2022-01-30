@@ -75,60 +75,63 @@ function getRoleplayerName(role) {
 const roleplayersTable =
 	document.querySelector('#roleplayers .tab_main table');
 
-const [increaseRoleplayersButton, decreaseRoleplayersButton] =
+const [
+	roleplayersIncreaseButton,
+	roleplayersDecreaseButton
+] =
 	document.querySelectorAll('#roleplayers .tab_footer button');
 
-// change number of roleplayers in model and view
+// add roleplayer to model and update view
 
-increaseRoleplayersButton.onclick = () => {
-	roleplayers.push({});
+roleplayersIncreaseButton.onclick = () => {
+
+	const newRoleplayer = {
+		name:
+			DEFAULTS.ROLEPLAYER_NAME,
+		role:
+			DEFAULTS.ROLEPLAYER_ROLE
+	};
+
+	roleplayers.push(newRoleplayer);
 	drawRoleplayersTable();
 }
 
-decreaseRoleplayersButton.onclick = () => {
-	roleplayers.pop();
-	drawRoleplayersTable();
+// if at least 2 roleplayers, remove roleplayer from model and update view
+
+roleplayersDecreaseButton.onclick = () => {
+
+	if (roleplayers.length >= 2) {
+		roleplayers.pop();
+		roleplayersToTable();
+	}
 }
 
 // model to view
 
-drawRoleplayersTable();
+roleplayersToTable();
 
-function drawRoleplayersTable() {
+function roleplayersToTable() {
 
-	roleplayersTable.innerHTML = roleplayers
-		.reduce((html, roleplayer, index) => (
+	roleplayersTable.innerHTML = roleplayers.reduce((html, roleplayer, index) => (
 			html +
-			getRoleplayerNameHtml(index) +
-			getRoleplayerRoleHtml(index)
-		), '');
+			roleplayerNameToRow(index) +
+			roleplayerRoleToRow(index)
+		),
+		''
+	);
 }
 
-function getRoleplayerNameHtml(i) {
-
-	if (roleplayers[i].name === undefined) {
-		roleplayers[i].name = '<roleplayer name>';
-	}
+function roleplayerNameToRow(i) {
 
 	return (
 		'<tr>' +
-			'<td style="background-color: #CCC;"> </td>' +
-			'<td style="background-color: #CCC;"> </td>' +
-		'</tr>' +
-		'<tr>' +
 			'<td> Name ' + (i + 1) + '</td>' +
-			'<td>' +
-				'<input ' +
-					'id="roleplayer_' + i + '_name" '+
-					'onchange="changeRoleplayerName(' + i + ')" ' +
-					'value="' + roleplayers[i].name + '"' +
-				'/> '+
-			'</td>' +
+			'<td> <input class="roleplayer_name" onchange="rowToRoleplayerName(' + i + ')" value="' + roleplayers[i].name + '"/> </td>' +
 		'</tr>'
 	);
 }
 
-function getRoleplayerRoleHtml(i) {
+function roleplayerRoleToRow(i) {
 
 	if (roleplayers[i].role === undefined) {
 		roleplayers[i].role = '<roleplayer role>';
@@ -137,12 +140,7 @@ function getRoleplayerRoleHtml(i) {
 	return (
 		'<tr>' +
 			'<td> Role ' + (i + 1) + '</td>' +
-			'<td>' +
-				'<input ' +
-					'id="roleplayer_' + i + '_role" ' +
-					'onchange="changeRoleplayerRole(' + i + ')"' +
-					'value="' + roleplayers[i].role + '"' +
-				'/>'+
+			'<td> <input class="roleplayer_role" onchange="rowToRoleplayerRole(' + i + ')" value="' + roleplayers[i].role + '"/>'+
 			'</td>' +
 		'</tr>'
 	);
@@ -150,10 +148,12 @@ function getRoleplayerRoleHtml(i) {
 
 // view to model
 
-function changeRoleplayerName(i) {
-	roleplayers[i].name = document.querySelector('#roleplayer_' + i + '_name').value;
+function rowToRoleplayerName(i) {
+	roleplayers[i].name =
+		document.querySelectorAll('.roleplayer_name')[i].value;
 }
 
-function changeRoleplayerRole(i) {
-	roleplayers[i].role = document.querySelector('#roleplayer_' + i + '_role').value;
+function rowToRoleplayerRole(i) {
+	roleplayers[i].role =
+		document.querySelectorAll('.roleplayer_role')[i].value;
 }

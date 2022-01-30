@@ -5,11 +5,7 @@
     <title></title>
     <style>
 
-		* {
-			margin: 0;
-			text-align: center;
-			font-size: 3vh;
-		}
+		/* color */
 
 		body {
 			background-color: #CCC;
@@ -19,114 +15,102 @@
 			background-color: #DDD;
 		}
 
+		/* text */
+
+		* {
+			text-align: center;
+			font-size: 3vh;
+		}
+
+		/* margins */
+
+		*
+			{ margin: 0; }
+
+		table, canvas
+			{ margin: auto; }
+
+		canvas
+			{ margin-top: 1vh; }
+
+		/* heights */
+
 		.tab_main {
-			height: 76vh;
+			height: 84vh;
+			border-bottom: 1vh solid #CCC;
 			overflow: scroll;
 		}
 
-		.tab_footer, #page_footer {
-			border: 1vh solid #CCC;
-			padding: 1vh;
-			height: 8vh;
+		table {
+			height: 83vh;
 		}
+
+		.tab_footer, #page_footer {
+			height: 7vh;
+			border-bottom: 1vh solid #CCC;
+		}
+
 		button, select, input {
 			height: 6vh;
-			max-width: 40vw;
-		}
-
-		table {
-			height: 72vh;
-			margin-left: auto;
-			margin-right: auto;
-			vertical-align: bottom;
-		}
-
-		td {
-			padding: 1vh;
-		}
-
-		button {
 			border: 0;
-			border-left: 0.2em solid #888;
-			padding-left: 0.2em;
-			padding-right: 0.2em;
 		}
+
+		/* widths */
+
+		.tab, .tab_main
+			{ width: 100%; }
+
+		input
+			{ width: 80%; }
+
+		button, select
+			{ max-width: 40%; }
+
+		/* padding */
+
+		td, button
+			{ padding: 1vh; }
+
 	</style>
 </head>
 <body>
 	<div class="tab" id="clubs">
-		<div class="tab_main">
-			<table>
-			</table>
-		</div>
+		<div class="tab_main"> <table> </table> </div>
 		<div class="tab_footer">
 			<button> increase </button>
 			<button> decrease </button>
 		</div>
 	</div>
-
 	<div class="tab" id="theme_venue_time">
 		<div class="tab_main">
 			<table>
-				<tr>
-					<td> Theme </td>
-					<td> <input/> </td>
-				</tr>
-				<tr>
-					<td> Venue </td>
-					<td> <input/> </td>
-				</tr>
-				<tr>
-					<td> Date </td>
-					<td> <input type="date"/> </td>
-				</tr>
-				<tr>
-					<td> Join by </td>
-					<td> <input type="time"/> </td>
-				</tr>
-				<tr>
-					<td> Start time </td>
-					<td> <input type="time"/> </td>
-				</tr>
-				<tr>
-					<td> Stop time </td>
-					<td> <input type="time"/> </td>
-				</tr>
+				<tr> <td> Theme </td> 		<td> <input/> </td> </tr>
+				<tr> <td> Venue </td> 		<td> <input/> </td> </tr>
+				<tr> <td> Date </td> 		<td> <input type="date"/> </td> </tr>
+				<tr> <td> Join by </td> 	<td> <input type="time"/> </td> </tr>
+				<tr> <td> Start time </td>	<td> <input type="time"/> </td> </tr>
+				<tr> <td> Stop time </td>	<td> <input type="time"/> </td> </tr>
 			</table>
 		</div>
 		<div class="tab_footer">
 		</div>
 	</div>
-
 	<div class="tab" id="plan">
-		<div class="tab_main">
-			<table>
-			</table>
-		</div>
-		<div class="tab_footer">
-		</div>
+		<div class="tab_main"> <table> </table> </div>
+		<div class="tab_footer"> </div>
 	</div>
-
 	<div class="tab" id="roleplayers">
-		<div class="tab_main">
-			<table>
-			</table>
-		</div>
+		<div class="tab_main"> <table> </table> </div>
 		<div class="tab_footer">
-			<button> increase </button>
-			<button> decrease </button>
+			<button> increase </button> <button> decrease </button>
 		</div>
 	</div>
-
 	<div class="tab" id="agenda_preview">
-		<div class="tab_main">
-			<canvas> </canvas>
-		</div>
+		<div class="tab_main"> <canvas> </canvas> </div>
 		<div class="tab_footer">
 			<a download="agenda.jpeg"> Download </a>
 		</div>
 	</div>
-
     <div id="page_footer">
 		<select id="select_tab">
 			<option value="clubs">
@@ -142,14 +126,11 @@
 				Rolelayers
 			</option>
 		</select>
-		<button>
-			Edit
-		</button>
-		<button>
-			Preview
-		</button>
+		<button> Edit </button>
+		<button> Preview </button>
+		<button onclick="toggleFullScreen()"> ◱ </button>
     </div>
-
+    <script src="./scripts/defaults.js"> </script>
     <script src="./scripts/helperFunctions.js"> </script>
     <script src="./scripts/timeMath.js"> </script>
     <script src="./scripts/editClubs.js"> </script>
@@ -159,5 +140,14 @@
     <script src="./scripts/agendaPreviewTab.js"> </script>
     <script src="./scripts/drawingAgendaPreview.js"> </script>
     <script src="./scripts/editTabs.js"> </script>
+    <script>
+		function toggleFullScreen() {
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			} else {
+				document.querySelector('body').requestFullscreen();
+			}
+		}
+    </script>
 </body>
 </html>

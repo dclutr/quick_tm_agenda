@@ -1,7 +1,7 @@
 
-function numberPostfix(number) {
+function numberPostfix(n) {
 
-	let digits = ('' + number).split('');
+	let digits = ('' + n).split('');
 
 	if (digits.size >= 2) {
 
@@ -11,7 +11,8 @@ function numberPostfix(number) {
 		if (tenthDigit === '1') { return 'th'; }
 	}
 
-	const unitDigit = digits[digits.length - 1];
+	const unitDigit =
+		digits[digits.length - 1];
 
 	switch (unitDigit) {
 		case '1': return 'st';
@@ -28,13 +29,15 @@ function numberPostfix(number) {
 // numberPostfix(23) === 'rd'
 // numberPostfix(24) === 'th'
 
-function zeroFill(string, length) {
+function zeroFill(n1, n2) {
 
-	for(let i = 0; string.length < length; i++) {
+	let string = '' + n1;
+
+	for(let i = 0; string.length < n2; i++) {
 		string = '0' + string;
 	}
 
 	return string;
 }
 
-// zeroFill('32', 5) === '00035'
+// zeroFill(32, 5) === '00035'
