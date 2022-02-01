@@ -191,8 +191,7 @@ function emptySlotRow(index) {
 
 	return (
 		'<tr>' +
-			'<td style="background-color: #CCC;"> </td>' +
-			'<td style="background-color: #CCC;">' +
+			'<td>' +
 				'<button class="add_buttons" onclick="add(' + index + ')"> add </button>' +
 				'<button class="drop_buttons" onclick="drop(' + index + ')"> drop </button>' +
 			'</td>' +
@@ -206,8 +205,7 @@ function itemHeaderRow(index) {
 
 	return (
 		'<tr>' +
-			'<td>' + (index + 1) + '</td>' +
-			'<td>' +
+			'<td> [ ' + (index + 1) + ' ] ' +
 				'<button class="remove_buttons" onclick="remove(' + index + ')"> remove </button>' +
 				'<button class="pick_buttons" onclick="setPicked(' + index + ')"> pick </button>' +
 			'</td>' +
@@ -217,32 +215,17 @@ function itemHeaderRow(index) {
 
 function itemMinutesToRow(minutes, index) {
 
-	return (
-		'<tr>' +
-			'<td> Minutes </td>' +
-			'<td> <input class="plan_item_minutes" onchange="rowToItemMinutes(' + index + ')" value="' + minutes + '" type="number"/> </td>' +
-		'</tr>'
-	);
+	return ('<tr> <td> <input class="plan_item_minutes" onchange="rowToItemMinutes(' + index + ')" value="' + minutes + '" type="number"/> </td> </tr>');
 }
 
 function itemRoleplayerToRow(roleplayer, index) {
 
-	return (
-		'<tr>' +
-			'<td> Roleplayer </td>' +
-			'<td> <input class="plan_item_roleplayer" onchange="rowToItemRoleplayer(' + index + ')" value="' + roleplayer + '"/> </td>' +
-		'</tr>'
-	);
+	return ('<tr> <td> <input class="plan_item_roleplayer" onchange="rowToItemRoleplayer(' + index + ')" value="' + roleplayer + '"/> </td> </tr>');
 }
 
 function itemDescriptionRow(description, index) {
 
-	return (
-		'<tr>' +
-			'<td> Description </td>' +
-			'<td> <input class="plan_item_description" onchange="rowToItemDescription(' + index + ')" value="' + description + '"/> </td>' +
-		'</tr>'
-	);
+	return ('<tr> <td> <input class="plan_item_description" onchange="rowToItemDescription(' + index + ')" value="' + description + '"/> </td> </tr>');
 }
 
 // view to model

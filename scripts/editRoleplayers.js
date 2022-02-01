@@ -114,8 +114,9 @@ function roleplayersToTable() {
 
 	roleplayersTable.innerHTML = roleplayers.reduce((html, roleplayer, index) => (
 			html +
-			roleplayerNameToRow(index) +
-			roleplayerRoleToRow(index)
+			((index > 0) ? '<tr> <td style="opacity:0"> </td> </tr>' : '') +
+			roleplayerRoleToRow(index) +
+			roleplayerNameToRow(index)
 		),
 		''
 	);
@@ -124,10 +125,7 @@ function roleplayersToTable() {
 function roleplayerNameToRow(i) {
 
 	return (
-		'<tr>' +
-			'<td> Name ' + (i + 1) + '</td>' +
-			'<td> <input class="roleplayer_name" onchange="rowToRoleplayerName(' + i + ')" value="' + roleplayers[i].name + '"/> </td>' +
-		'</tr>'
+		'<tr> <td> <input class="roleplayer_name" onchange="rowToRoleplayerName(' + i + ')" value="' + roleplayers[i].name + '"/> </td> </tr>'
 	);
 }
 
@@ -138,11 +136,7 @@ function roleplayerRoleToRow(i) {
 	}
 
 	return (
-		'<tr>' +
-			'<td> Role ' + (i + 1) + '</td>' +
-			'<td> <input class="roleplayer_role" onchange="rowToRoleplayerRole(' + i + ')" value="' + roleplayers[i].role + '"/>'+
-			'</td>' +
-		'</tr>'
+		'<tr> <td> <input class="roleplayer_role" onchange="rowToRoleplayerRole(' + i + ')" value="' + roleplayers[i].role + '"/> </td> </tr>'
 	);
 }
 

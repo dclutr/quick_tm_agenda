@@ -2,7 +2,6 @@
 <html lang="">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, user-scalable=no">
     <title></title>
     <style>
 
@@ -21,6 +20,10 @@
 		* {
 			text-align: center;
 			font-size: 3vh;
+		}
+
+		.cell_header {
+			font-size: 4vh;
 		}
 
 		/* margins */
@@ -85,12 +88,12 @@
 	<div class="tab" id="theme_venue_time">
 		<div class="tab_main">
 			<table>
-				<tr> <td> Theme </td> 		<td> <input/> </td> </tr>
-				<tr> <td> Venue </td> 		<td> <input/> </td> </tr>
-				<tr> <td> Date </td> 		<td> <input type="date"/> </td> </tr>
-				<tr> <td> Join by </td> 	<td> <input type="time"/> </td> </tr>
-				<tr> <td> Start time </td>	<td> <input type="time"/> </td> </tr>
-				<tr> <td> Stop time </td>	<td> <input type="time"/> </td> </tr>
+				<tr> <td> Theme <br/> <input/> </td> </tr>
+				<tr> <td> Venue <br/> <input/> </td> </tr>
+				<tr> <td> Date <br/> <input type="date"/> </td> </tr>
+				<tr> <td> Join by <br/> <input type="time"/> </td> </tr>
+				<tr> <td> Start time <br/> <input type="time"/> </td> </tr>
+				<tr> <td> Stop time <br/> <input type="time"/> </td> </tr>
 			</table>
 		</div>
 		<div class="tab_footer">
@@ -129,7 +132,6 @@
 		</select>
 		<button> Edit </button>
 		<button> Preview </button>
-		<button onclick="toggleFullScreen()"> ◱ </button>
     </div>
     <script src="./scripts/defaults.js"> </script>
     <script src="./scripts/helperFunctions.js"> </script>
@@ -141,14 +143,5 @@
     <script src="./scripts/agendaPreviewTab.js"> </script>
     <script src="./scripts/drawingAgendaPreview.js"> </script>
     <script src="./scripts/editTabs.js"> </script>
-    <script>
-		function toggleFullScreen() {
-			if (document.fullscreenElement) {
-				document.exitFullscreen();
-			} else {
-				document.querySelector('body').requestFullscreen();
-			}
-		}
-    </script>
 </body>
 </html>

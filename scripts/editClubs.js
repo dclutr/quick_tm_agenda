@@ -51,6 +51,7 @@ function clubsToTable() {
 
 	clubsTable.innerHTML = clubs.reduce((html, club, index) => (
 			html +
+			((index > 0) ? '<tr> <td style="opacity:0"> </td> </tr>' : '') +
 			clubNameToRow(index) +
 			clubMeetingNumberToRow(index)
 		),
@@ -62,8 +63,10 @@ function clubNameToRow(i) {
 
 	return (
 		'<tr>' +
-			'<td> Club ' + (i + 1) + '</td>' +
-			'<td> <input class="club_name" onchange="rowToClubName(' + i + ')" value="' + clubs[i].name + '"/> </td>' +
+			'<td>' +
+				'<span class="cell_header"> Club ' + (i + 1) + ' </span> <br/>' +
+				'<input class="club_name" onchange="rowToClubName(' + i + ')" value="' + clubs[i].name + '"/> ' +
+			'</td>' +
 		'</tr>'
 	);
 }
@@ -72,8 +75,10 @@ function clubMeetingNumberToRow(i) {
 
 	return (
 		'<tr>' +
-			'<td> Meeting # </td>' +
-			'<td> <input class="club_meeting_number" onchange="rowToClubMeetingNumber(' + i + ')" value="' + clubs[i].meetingNumber + '" type="number"/> </td>' +
+			'<td>' +
+				'<span class="cell_header"> Meeting # </span> <br/>' +
+				'<input class="club_meeting_number" onchange="rowToClubMeetingNumber(' + i + ')" value="' + clubs[i].meetingNumber + '" type="number"/> ' +
+			'</td>' +
 		'</tr>'
 	);
 }

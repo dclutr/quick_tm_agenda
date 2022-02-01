@@ -16,13 +16,13 @@ const DEFAULTS = {
 	STOP_TIME:
 		'03:00',
 	ROLEPLAYER_NAME:
-		'',
+		'<roleplayer name>',
 	ROLEPLAYER_ROLE:
-		'',
+		'<roleplayer role>',
 	PLAN_ITEM_MINUTES:
 		1,
 	PLAN_ITEM_ROLEPLAYER:
-		'',
+		'<roleplayer role>',
 	PLAN_ITEM_DESCRIPTION:
-		''
+		'<description>'
 };
