@@ -1,4 +1,4 @@
-# quick-tm-agenda
+# quick_tm_agenda
 A tool to create an agenda for a Toastmasters meeting (https://dclutr.github.io/quick_tm_agenda)
 
 ## Known issues:
